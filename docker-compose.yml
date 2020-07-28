@@ -1,0 +1,19 @@
+version: '3.3'
+services:
+    proxy:
+        image: 'gomods/athens:latest'
+        container_name: 'athens-proxy'
+        environment:
+            - ATHENS_STORAGE_TYPE=s3
+            - AWS_REGION=us-east-1
+            - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+            - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+            - ATHENS_S3_BUCKET_NAME=${BUCKET_NAME}
+            - AWS_USE_DEFAULT_CONFIGURATION=false
+            - AWS_FORCE_PATH_STYLE=true
+            - AWS_CREDENTIALS_ENDPOINT=${CEPH_IP}:${CEPH_PORT}
+            - AWS_ENDPOINT=http://${CEPH_IP}:${CEPH_PORT}
+        ports:
+            - 3000:3000
+        restart: always
+
